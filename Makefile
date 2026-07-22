@@ -14,7 +14,7 @@ build: ## Build all modules
 	@for m in $(MODULES); do \
 		echo "=== Building $$m ==="; \
 		if [ "$$m" = "cli" ]; then \
-			cd $$m && go build -o ../$(BIN_DIR)/hyperfleet ./ && cd ..; \
+			cd $$m && go build -o ../$(BIN_DIR)/hyperfleetctl ./ && cd ..; \
 		else \
 			cd $$m && go build ./... && cd ..; \
 		fi \
@@ -68,7 +68,7 @@ build-tools: ## Build all codegen CLI tools into bin/
 .PHONY: build-cli
 build-cli: ## Build the CLI binary into bin/
 	@mkdir -p $(BIN_DIR)
-	cd cli && go build -o ../$(BIN_DIR)/hyperfleet ./
+	cd cli && go build -o ../$(BIN_DIR)/hyperfleetctl ./
 
 # === Code generation (placeholder targets) ===
 
