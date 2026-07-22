@@ -84,10 +84,7 @@ func (g *Generator) Generate(outputDir string) error {
 	}
 
 	// Write unformatted first for debugging
-	outputFile := filepath.Join(outputDir, "zz_generated.passthrough.go")
-	if err := os.WriteFile(outputFile+".raw", buf.Bytes(), 0644); err != nil {
-		return fmt.Errorf("writing raw output file: %w", err)
-	}
+	outputFile := filepath.Join(outputDir, "hostedclusterspec.passthrough.go")
 
 	// Format the generated code
 	formatted, err := format.Source(buf.Bytes())

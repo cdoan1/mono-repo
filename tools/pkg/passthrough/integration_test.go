@@ -52,7 +52,7 @@ func TestGenerateFromHyperShiftModule(t *testing.T) {
 	}
 
 	// Verify output file exists
-	outputFile := filepath.Join(outputDir, "zz_generated.passthrough.go")
+	outputFile := filepath.Join(outputDir, "hostedclusterspec.passthrough.go")
 	if _, err := os.Stat(outputFile); os.IsNotExist(err) {
 		t.Fatalf("Output file not created: %s", outputFile)
 	}

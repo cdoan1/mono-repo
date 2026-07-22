@@ -251,7 +251,7 @@ func deriveFieldPrefix(typeName string) string {
 func parseStructTag(tag, key string) string {
 	// Simple tag parser - handles: `json:"name,omitempty" yaml:"name"`
 	parts := strings.Fields(tag)
-	prefix := key + `:`
+	prefix := key + `:"`
 
 	for _, part := range parts {
 		if strings.HasPrefix(part, prefix) {

@@ -28,16 +28,11 @@ func TestGenerate(t *testing.T) {
 
 	t.Logf("Generating to: %s", tmpDir)
 	if err := gen.Generate(tmpDir); err != nil {
-		// Try to read raw output for debugging
-		rawFile := filepath.Join(tmpDir, "zz_generated.passthrough.go.raw")
-		if raw, err2 := os.ReadFile(rawFile); err2 == nil {
-			t.Logf("Raw generated output:\n%s", raw)
-		}
 		t.Fatalf("Failed to generate: %v", err)
 	}
 
 	// Check output file exists
-	outputFile := filepath.Join(tmpDir, "zz_generated.passthrough.go")
+	outputFile := filepath.Join(tmpDir, "hostedclusterspec.passthrough.go")
 	if _, err := os.Stat(outputFile); err != nil {
 		t.Fatalf("Output file not created: %v", err)
 	}

@@ -91,11 +91,12 @@ type HostedClusterSpecPassthrough struct {
 	// +k8s:openapi-gen=false
 	// +hyperfleet:write-mode=service-set
 	ServiceAccountSigningKey *corev1.LocalObjectReference `json:"serviceAccountSigningKey,omitempty"`
-	// configuration specifies configuration for individual OCP components in the cluster.
-	// Uses HyperFleet-owned types to enable granular marker control on nested fields.
+	// configuration specifies configuration for individual OCP components in the
+	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	Configuration *hypershiftv1beta1.ClusterConfiguration `json:"configuration,omitempty"`
 	// operatorConfiguration specifies configuration for individual OCP operators in the cluster.
+	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	OperatorConfiguration *hypershiftv1beta1.OperatorConfiguration `json:"operatorConfiguration,omitempty"`
 	// auditWebhook contains metadata for configuring an audit webhook endpoint
@@ -119,6 +120,7 @@ type HostedClusterSpecPassthrough struct {
 	// +hyperfleet:write-mode=service-set
 	FIPS bool `json:"fips"`
 	// pausedUntil is a field that can be used to pause reconciliation on the HostedCluster controller, resulting in any change to the HostedCluster being ignored.
+	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	PausedUntil *string `json:"pausedUntil,omitempty"`
 	// olmCatalogPlacement specifies the placement of OLM catalog components. By default,
@@ -190,7 +192,7 @@ type NodePoolSpecPassthrough struct {
 	// +hyperfleet:write-mode=service-set
 	Taints []hypershiftv1beta1.Taint `json:"taints,omitempty"`
 	// pausedUntil is a field that can be used to pause reconciliation on the NodePool controller. Resulting in any change to the NodePool being ignored.
-	// +k8s:openapi-gen=false
+	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	PausedUntil *string `json:"pausedUntil,omitempty"`
 	// tuningConfig is a list of references to ConfigMaps containing serialized

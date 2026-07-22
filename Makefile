@@ -10,9 +10,14 @@ all: build test vet ## Build, test, and vet all modules
 
 .PHONY: build
 build: ## Build all modules
+	@mkdir -p $(BIN_DIR)
 	@for m in $(MODULES); do \
 		echo "=== Building $$m ==="; \
-		cd $$m && go build ./... && cd ..; \
+		if [ "$$m" = "cli" ]; then \
+			cd $$m && go build -o ../$(BIN_DIR)/hyperfleet ./ && cd ..; \
+		else \
+			cd $$m && go build ./... && cd ..; \
+		fi \
 	done
 
 .PHONY: test
@@ -68,24 +73,23 @@ build-cli: ## Build the CLI binary into bin/
 # === Code generation (placeholder targets) ===
 
 .PHONY: generate
-generate: ## Run all generators (placeholder)
-	@echo "TODO: generate-registry generate-passthrough manifests generate-openapi generate-conversion"
+generate: generate-registry generate-passthrough generate-openapi generate-conversion ## Run all generators
 
 .PHONY: generate-registry
-generate-registry: ## Generate field metadata registry from Go markers
-	@echo "TODO: bin/marker-scanner --input-dirs=api/v1alpha1 --output-file=sdk/registry/field_metadata.go"
+generate-registry: build-tools ## Generate field metadata registry from Go markers
+	$(BIN_DIR)/marker-scanner --input-dirs=api/v1alpha1 --output-file=sdk/registry/field_metadata.go
 
 .PHONY: generate-passthrough
-generate-passthrough: ## Generate passthrough types from HyperShift
-	@echo "TODO: bin/passthrough-gen --import-path=$(HYPERSHIFT_IMPORT_PATH) --types=$(HYPERSHIFT_TYPES) --output-dir=api/v1alpha1 --package=v1alpha1"
+generate-passthrough: build-tools ## Generate passthrough types from HyperShift
+	$(BIN_DIR)/passthrough-gen --import-path=$(HYPERSHIFT_IMPORT_PATH) --types=$(HYPERSHIFT_TYPES) --output-dir=api/v1alpha1 --package=v1alpha1
 
 .PHONY: generate-openapi
-generate-openapi: ## Generate OpenAPI JSON schema
-	@echo "TODO: bin/openapi-gen --input-dirs=api/v1alpha1 --output-file=openapi/openapi.json"
+generate-openapi: build-tools ## Generate OpenAPI JSON schema
+	$(BIN_DIR)/openapi-gen --input-dirs=api/v1alpha1 --output-file=openapi/openapi.json
 
 .PHONY: generate-conversion
-generate-conversion: ## Generate REST types and conversion functions
-	@echo "TODO: bin/conversion-gen --api-version=v1alpha1 --crd-package=api/v1alpha1 --output-dir=tools/pkg/conversion"
+generate-conversion: build-tools ## Generate REST types and conversion functions
+	$(BIN_DIR)/conversion-gen --api-version=v1alpha1 --crd-package=github.com/cdoan1/mono-repo/api/v1alpha1 --input-dirs=api/v1alpha1 --output-dir=tools/pkg/conversion/v1alpha1
 
 # === Workspace ===
 

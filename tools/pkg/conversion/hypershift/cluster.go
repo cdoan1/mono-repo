@@ -15,7 +15,7 @@ import (
 // 1. Maps passthrough fields directly (no type conversion needed)
 // 2. Sets metadata (name, namespace, labels, annotations)
 // 3. EXCLUDES envelope fields (deleteProtection, expirationTimestamp, properties, displayName)
-//    - These are HyperFleet-only and not sent to HyperShift
+//   - These are HyperFleet-only and not sent to HyperShift
 //
 // Note: OwnerReferences and finalizers should be set by the controller, not this function.
 func ToHyperShiftHostedCluster(cluster *v1alpha1.Cluster) *hypershiftv1beta1.HostedCluster {

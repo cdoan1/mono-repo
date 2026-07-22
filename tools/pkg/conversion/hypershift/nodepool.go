@@ -15,7 +15,7 @@ import (
 // 1. Maps passthrough fields directly
 // 2. Sets metadata (name, namespace, labels, annotations)
 // 3. EXCLUDES envelope fields (clusterRef, displayName, autoRepair)
-//    - These are HyperFleet-only and not sent to HyperShift
+//   - These are HyperFleet-only and not sent to HyperShift
 //
 // Note: OwnerReferences should be set by the controller to reference the HostedCluster.
 func ToHyperShiftNodePool(np *v1alpha1.NodePool) *hypershiftv1beta1.NodePool {

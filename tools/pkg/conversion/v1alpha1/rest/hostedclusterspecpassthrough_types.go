@@ -17,11 +17,12 @@ type HostedClusterSpecPassthrough struct {
 	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	AutoNode *hypershiftv1beta1.AutoNode `json:"autoNode,omitempty"`
-	// configuration specifies configuration for individual OCP components in the cluster.
-	// Uses HyperFleet-owned types to enable granular marker control on nested fields.
+	// configuration specifies configuration for individual OCP components in the
+	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	Configuration *v1alpha1.ClusterConfiguration `json:"configuration,omitempty"`
 	// operatorConfiguration specifies configuration for individual OCP operators in the cluster.
+	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	OperatorConfiguration *hypershiftv1beta1.OperatorConfiguration `json:"operatorConfiguration,omitempty"`
 	// fips indicates whether this cluster's nodes will be running in FIPS mode.
@@ -29,6 +30,7 @@ type HostedClusterSpecPassthrough struct {
 	// +hyperfleet:write-mode=service-set
 	FIPS bool `json:"fips"`
 	// pausedUntil is a field that can be used to pause reconciliation on the HostedCluster controller, resulting in any change to the HostedCluster being ignored.
+	// +k8s:openapi-gen=true
 	// +hyperfleet:write-mode=service-set
 	PausedUntil *string `json:"pausedUntil,omitempty"`
 }

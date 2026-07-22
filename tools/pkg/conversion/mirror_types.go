@@ -5,9 +5,9 @@ package conversion
 // MirrorTypeMapping defines a type that we mirror from HyperShift upstream
 // and need automatic conversion logic for
 type MirrorTypeMapping struct {
-	FieldName      string // Name of the field in the struct (e.g., "Configuration", "AutoNode")
-	HyperFleetType string // Our mirror type (e.g., "v1alpha1.ClusterConfiguration")
-	HyperShiftType string // Upstream HyperShift type (e.g., "v1beta1.ClusterConfiguration")
+	FieldName          string // Name of the field in the struct (e.g., "Configuration", "AutoNode")
+	HyperFleetType     string // Our mirror type (e.g., "v1alpha1.ClusterConfiguration")
+	HyperShiftType     string // Upstream HyperShift type (e.g., "v1beta1.ClusterConfiguration")
 	ConversionStrategy string // "json-roundtrip" or "field-by-field"
 }
 
