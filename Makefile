@@ -79,6 +79,10 @@ generate: generate-registry generate-passthrough generate-openapi generate-conve
 generate-registry: build-tools ## Generate field metadata registry from Go markers
 	$(BIN_DIR)/marker-scanner --input-dirs=api/v1alpha1 --output-file=sdk/registry/field_metadata.go
 
+.PHONY: generate-registry-verbose
+generate-registry-verbose: build-tools ## Generate field metadata registry (verbose output)
+	$(BIN_DIR)/marker-scanner --input-dirs=api/v1alpha1 --output-file=sdk/registry/field_metadata.go --verbose
+
 .PHONY: generate-passthrough
 generate-passthrough: build-tools ## Generate passthrough types from HyperShift
 	$(BIN_DIR)/passthrough-gen --import-path=$(HYPERSHIFT_IMPORT_PATH) --types=$(HYPERSHIFT_TYPES) --output-dir=api/v1alpha1 --package=v1alpha1
@@ -96,6 +100,20 @@ generate-conversion: build-tools ## Generate REST types and conversion functions
 .PHONY: workspace-sync
 workspace-sync: ## Sync go.work file
 	go work sync
+
+.PHONY: get-hypershift-version
+get-hypershift-version: ## Show current HyperShift version in go.mod
+	@PSEUDO_VERSION=$$(grep "github.com/openshift/hypershift/api" api/go.mod | awk '{print $$2}'); \
+	COMMIT=$$(echo $$PSEUDO_VERSION | rev | cut -d'-' -f1 | rev); \
+	echo "Current HyperShift in go.mod:"; \
+	echo "  Pseudo-version: $$PSEUDO_VERSION"; \
+	echo "  Commit: $$COMMIT"; \
+	TAG=$$(curl -s https://api.github.com/repos/openshift/hypershift/tags | jq -r ".[] | select(.commit.sha | startswith(\"$$COMMIT\")) | .name" | head -1); \
+	if [ -z "$$TAG" ]; then \
+		echo "  Tag: (no tag found - using commit)"; \
+	else \
+		echo "  Tag: $$TAG"; \
+	fi
 
 # === Verify ===
 

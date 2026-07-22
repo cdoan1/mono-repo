@@ -566,7 +566,6 @@ var FieldRegistry = map[string]FieldMeta{
 	"spec.nodePool.pausedUntil": {
 		FieldPath: "spec.nodePool.pausedUntil",
 		WriteMode: ServiceSet,
-		Hidden:    true,
 	},
 	"spec.nodePool.platform": {
 		FieldPath: "spec.nodePool.platform",

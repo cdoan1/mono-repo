@@ -519,8 +519,7 @@
   },
   {
     "fieldPath": "spec.nodePool.pausedUntil",
-    "writeMode": "service-set",
-    "hidden": true
+    "writeMode": "service-set"
   },
   {
     "fieldPath": "spec.nodePool.platform",
